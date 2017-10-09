@@ -1,0 +1,18 @@
+#!/bin/bash
+BITRATE=64
+OUTDIR="."
+if [ "$1" != "" ]; then
+    BITRATE=$1
+fi
+if [ "$2" != "" ]; then
+    OUTDIR=$2
+fi
+
+echo "Encoding with bitrate ${BITRATE} in ${OUTDIR}"
+
+for file in *.flac ; do
+	FILE=`basename "${file}" .flac`
+	OUTFILE="$OUTDIR/$FILE.ogg"
+		
+	opusenc --discard-pictures --bitrate $BITRATE "$file" "$OUTFILE"
+done;
